@@ -1,0 +1,19 @@
+01000            SESTEJ  START   4096    
+01000  6D0003            LDS     #3    
+01003  750009            LDT     #9    
+01006  050000            LDX     #0    
+01009  03A010    ZANKA   LDA     ALFA,X    
+0100C  1BA016            ADD     BETA,X    
+0100F  0FA01C            STA     GAMA,X    
+01012  9041              ADDR    S,X    
+01014  A015              COMPR   X,T    
+01016  3B2FF0            JLT     ZANKA    
+01019  3F2FFD    KONEC   J       KONEC    
+                  
+0101C  4F0000    ALFA    RSUB        
+0101F  4F0000            RSUB        
+01022  4F0000            RSUB        
+01025  4F0000    BETA    RSUB        
+01028  4F0000            RSUB        
+0102B  4F0000            RSUB        
+0102E  F4        GAMA    HIO         

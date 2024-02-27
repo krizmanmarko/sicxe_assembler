@@ -1,0 +1,38 @@
+.vars	WORD C'printable ascii'	.bs
+.	WORD C'\''
+.	WORD C''
+.	WORD X'0123456789ABCDEFabcdef'
+.buf	RESW 10
+name	START 10
+	ORG 100
+	BASE 11
+	NOBASE
+	END haha
+test	EQU -3
+	FIX
+haha	FIX
+hahe	ADDR A, X
+	MULR A, X
+	COMPR A, X
+	CLEAR A
+	SHIFTL A, 0x10
+	SVC 0b10
+	ADD @0o20
+	+ADD #hahe, X
+.	EXTDEF simbol, simbol
+.	EXTREF simbol, simbol, simbol
+.	LTORG
+.name	CSECT
+.	USE name
+.	USE					. enters previous csect
+.	RESB 1000
+.	RESW 1000
+.	RESF 1
+.	BYTE 1000				. rounds to 1 byte
+.	WORD 1000				. rounds to 3 byte
+.	FLOT 1					. rounds to 6 byte
+.
+.	+LDA 42,X
+.	LDA #-0b1001
+.	LDA @+0o777
+.	LDA =+0x422

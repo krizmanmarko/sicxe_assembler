@@ -1,0 +1,19 @@
+. zbirnik1 prosojnice (cist na koncu)
+SESTEJ	START 4096
+begin	LDS #3
+	LDT #9
+	LDX #0
+ZANKA	LDA ALFA, X
+	ADD BETA, X
+	STA GAMA, X
+	ADDR S, X
+	COMPR X, T
+	JLT ZANKA
+KONEC	J KONEC
+	END begin
+
+ALFA	RESB 2
+	BYTE 1
+BETA	RESB 2
+	BYTE 2
+GAMA	RESB 9

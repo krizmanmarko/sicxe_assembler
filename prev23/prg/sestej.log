@@ -1,0 +1,17 @@
+***** Section <default> *****
+Stats: size=47  blocks=47  symbols=6  literals=0  relocations=0
+Blocks
+    name        start   size  #ins #dir #sto
+    <default>   01000  0002F    17    1    0
+Symbols
+    name        hex       dec  scope     kind      type      description
+    ALFA     00101C      4124  local     relative  code      label
+    BETA     001025      4133  local     relative  code      label
+    GAMA     00102E      4142  local     relative  code      label
+    KONEC    001019      4121  local     relative  code      label
+    SESTEJ   001000      4096  exported  relative  code      label
+    ZANKA    001009      4105  local     relative  code      label
+Literals
+    label   definition
+Relocations
+    address length flag symbol

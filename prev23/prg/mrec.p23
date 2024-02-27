@@ -1,0 +1,10 @@
+prog	START 0x2000
+.	BASE 0x2000
+b	BYTE 0xff
+	RESB 2
+a	RESB 1
+	RESB 0x2000
+start	+LDA #a
+halt	J halt
+	RSUB
+	END start

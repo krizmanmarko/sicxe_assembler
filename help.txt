@@ -1,0 +1,168 @@
+SPO programming language consists of following lexical elements:
+https://ucilnica.fri.uni-lj.si/pluginfile.php/94346/mod_resource/content/1/03%20-%20AsmLang.pdf
+
+
+
+name decl (lvalue)
+label start ...
+label equ ...
+label f1|f2|f3|f4
+label resb...	// not implemented
+
+name usage (rvalue)
+AstAddressName.java
+
+
+
+1. LEXICAL ANALYSIS
+===================
+
+Constants:
+	number (non zero padded, optional +-, for now only decimal (also want 0x, 0o, 0b))
+	X'deadbeef'
+	C'printable ascii'
+
+Symbols:
+	- (minus sign)
+	+ (plus sign)
+	+ (f4)
+	* (locctr)
+	# (immediate)
+	@ (& in c)
+	= (some weird alloc and reference)
+	, (for ,X)
+
+Keywords:
+	START	ORG	BASE	NOBASE	EQU
+	EXTDEF	EXTREF	LTORG	CSECT	USE
+	RESB	RESW	RESF	BYTE	WORD
+	FLOT	END	LDA	LDX	LDL
+	STA	STX	STL	ADD	SUB
+	MUL	DIV	COMP	TIX	JEQ
+	JGT	JLT	J	AND	OR
+	JSUB	RSUB	LDCH	STCH	ADDF
+	SUBF	MULF	DIVF	LDB	LDS
+	LDF	LDT	STB	STS	STF
+	STT	COMPF	ADDR	SUBR	MULR
+	DIVR	COMPR	SHIFTL	SHIFTR	RMO
+	SVC	CLEAR	TIXR	FLOAT	FIX
+	NORM	LPS	STI	RD	WD
+	TD	STSW	SSK	SIO	HIO
+	TIO	X (for ,X)
+
+Identifiers:
+	[A-Za-z_][A-Za-z_0-9]{0..5}	<- length is 1-6 characters
+
+Comments:
+	\..*$
+
+White space:
+	space
+	tab	(8 spaces)
+	\n
+	\r
+
+
+2. SYNTACTIC ANALYSIS
+=====================
+
+
+each line can be empty or "label	KEYWORD (correct args)"
+source ->
+	| lines EOF
+
+lines ->
+	| line NL lines
+
+line ->
+	| ID statement			// label
+	| statement
+
+statement ->
+	| f1 | f2 | f34
+
+f1 ->
+	| f1_KEYWORD
+
+f2 ->
+	| f2_KEYWORD reg COMMA reg
+
+
+
+possibly_indexed ->
+	| COMMA X
+	|
+
+reg ->
+	| A | X | L | B | S | T | F | PC | SW
+
+mem ->
+	| INT_CONST
+	| ID
+	| EQUAL INT_CONST
+
+imm ->
+	| HASH INT_CONST
+	| HASH PLUS INT_CONST
+	| HASH MINUS INT_CONST
+	
+
+// TODO: should program still assemble if there is no START, END directives?
+	
+
+----------------------------------------------------
+extras
+----------------------------------------------------
+
+LDA 42
+LDA #42
+LDA @42
+LDA =42
+
+symbols:
+	+ (f4)
+	* (locctr)
+	# (immediate)
+	@ (& in c)
+	= (some weird alloc and reference)
+
+simboli/labels
+
+opcodes
+f1, f2, f3, f4
+
+
+name	START address
+	ORG address
+	BASE address
+	NOBASE
+	EQU
+	EXTDEF simbol, simbol...
+	EXTREF simbol, simbol...
+	LTORG
+name	CSECT
+	USE name
+	USE					<- enters previous csect
+	RESB number
+	RESW number
+	RESF number
+	BYTE constant				<- rounds to 1 byte
+	WORD constant				<- rounds to 3 byte
+	FLOT constant				<- rounds to 6 byte
+	END entry
+
+numbers:
+	1001
+	0xfff
+	0o777
+	0b101010101
+	-1
+
+Constants:
+	C'printable ascii'
+	X'deadbeef'
+	extension
+	8 bit number
+	24 bit number
+	signed number
+	unsigned number
